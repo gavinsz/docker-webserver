@@ -1,0 +1,14 @@
+version: "3"
+services:
+        web:
+                image: creativitykills/nginx-php-server
+                container_name: nginx-php
+                hostname: nginx-php
+                ports:
+                        - 80:80
+                        - 443:443
+                volumes:
+                        - /home/gavin/workspace/docker-nginx:/var/www
+                build:
+                context: .
+                dockerfile: dockerfile
