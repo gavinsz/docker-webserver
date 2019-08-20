@@ -1,22 +1,27 @@
 <?php
     function is_valid_file_type($file_type):bool 
     {
-	if (($file_type == "image/gif")
+    if (($file_type == "image/gif")
             || ($file_type == "image/jpeg")
-	    || ($file_type == "image/jpg")
-	    || ($file_type == "image/png")
-	    || ($file_type == "image/doc")
-	    || ($file_type == "application/pdf")
-	    || ($file_type == "application/wps-office.pptx")
-	    || ($file_type == "application/wps-office.xlsx")
-	    || ($file_type == "application/wps-office.docx")
-	    || ($file_type == "application/wps-office.ppt")
-	    || ($file_type == "application/wps-office.xls")
-	    || ($file_type == "application/wps-office.doc")){
-	    return True;
-	}else{
-	    return False;
-	}
+        || ($file_type == "image/jpg")
+        || ($file_type == "image/png")
+        || ($file_type == "image/doc")
+        || ($file_type == "application/pdf")
+        || ($file_type == "application/wps-office.pptx")
+        || ($file_type == "application/wps-office.xlsx")
+        || ($file_type == "application/wps-office.docx")
+        || ($file_type == "application/wps-office.ppt")
+        || ($file_type == "application/vnd.ms-excel")
+        || ($file_type == "application/wps-office.doc")
+        || ($file_type == "application/msword")
+        || ($file_type == "application/vnd.ms-powerpoint")
+        || ($file_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        || ($file_type == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
+        || ($file_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")){
+        return True;
+    }else{
+        return False;
+    }
     }
 
     function is_valid_file($file_type, $size):bool {
@@ -24,7 +29,7 @@
         echo "size=".$size;
 
         if (is_valid_file_type($file_type)
-            && ($size < 10*1024*1024)){
+            && ($size < 100*1024*1024)){
             return True;
         }else{
             return False;
@@ -32,7 +37,7 @@
     }
 
     function gen_filename():string {
-    	return strtotime(date("Y-m-d H:i:s"));
+        return strtotime(date("Y-m-d H:i:s"));
     }
 
     $target_path = "/var/www/public/upload/";
@@ -46,14 +51,14 @@
             echo "Type: " . $_FILES["file"]["type"] . "<br />";
             echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
             echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
-	    $name = $_FILES["file"]["name"];
-	    $re = strpos($name, ".");
-	    if ($re !== False){
-	    	$name = substr($name, $re);
-	    }
+        $name = $_FILES["file"]["name"];
+        $re = strpos($name, ".");
+        if ($re !== False){
+            $name = substr($name, $re);
+        }
 
-	    $store_filename = gen_filename() . $name;
-	    echo "store_filename=".$store_filename . "<br />";
+        $store_filename = gen_filename() . $name;
+        echo "store_filename=".$store_filename . "<br />";
 
             if (file_exists($target_path. $store_filename)) {
                 echo $store_filename . " already exists. ";
