@@ -10,5 +10,5 @@ services:
                 volumes:
                         - /home/gavin/workspace/docker-nginx:/var/www
                 build:
-                context: .
-                dockerfile: dockerfile
+                        context: .
+                        dockerfile: dockerfile
